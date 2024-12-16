@@ -1,55 +1,69 @@
-<div align="center">
+## Identity Authorization Service
+A REST API for User and Role management, token generation and validation
 
-# Simple Java Calculator
+## Contents
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Data Seed](#data-seed)
+- [Deployment](#deployment)
+- [Tests](#tests)
 
-![Logo Simple Java Calculator](logo.png)
 
----
+## Features
+This features are available in this service
 
-This calculator is **simple** with an **easy to use code** to help novices **learn how to create a calculator** program with **`Java`**.
+- **User Registration:** Register user and send email for confirmation
+- **Password reset: Send email with a reset link**
+- **Authentication with JWT:** Generate JWT Access token and a random string for Refresh token the login
+- **Logger:** Log info/error message into a log file
+- **Role based authorization:** Allow or denied access to a resource according to user's role
+- **Swagger:** API Documented with Swagger 2
+- **HTML Email:** Use Thymeleaf to build HTML templates for email
 
----
+## Prerequisites
+- JDK 8
+- Maven
+- MongoDB
+- Redis
 
-</div>
-
-This project was **originally written using `Eclipse`**, but I have **migrated it to NetBeans**.
-
-If you use the executable "SimpleJavaCalculator.jar" file and that doesn't work, you can type this in your terminal:
-
-```shell
-java -jar /your_calculator_directory/SimpleJavaCalculator.jar`
+## Installation
+- Clone the repository
+```bash
+$ git clone https://github.com/tericcabrel/identity-authorization.git [project_name]
 ```
 
-## :sparkles: Example
+- Install dependencies
+```bash
+$ cd [project_name]
+$ mvn install
+```
+- Create the configuration file and update with your local config
+```bash
+$ cd src/main/resources
+$ cp application-example.properties application.properties
+$ nano application.properties
+```
+- Start Application
+```bash
+$ mvn spring-boot:run
+```
+Note: An IDE like **IntelliJ** can perform these tasks for you automatically
 
-![Example: Java Calculator](Screenshots/screenshot.png)
+## Data Seed
+Inside the package **com.tericcabrel.authorization.bootstrap**, the file named _DataSeeder.java_ 
+is responsible for loading data on application startup.
+It's there the creation of default roles **(ROLE_ADMIN, ROLE_USER)**, 
+and the Super Admin (the first user with the role: ROLE_ADMIN) are performed
 
-## You might also like :monocle_face:
+## Deployment
+At the root of the folder, there is a file named **deploy.sh** who is bash file who content
+who contains scripts to deploy our app. The main steps are:
 
-**[My Simple Java Text Editor](https://github.com/pH-7/Simple-Java-Text-Editor).**
+- Backup the local configuration file and create one for production 
+- Build **.jar** the package
+- Delete configuration for production and restore local configuration
+- Build docker image with his dependencies **(see docker-compose.yml)** and run the container
 
-[![Open-Source Simple Java Text Editor](https://github.com/pH-7/Simple-Java-Text-Editor/blob/master/Screenshots/find-replace-word-in-java-text-editor.png)](https://github.com/pH-7/Simple-Java-Text-Editor "Open-Source Simple Java Text Editor")
-
-
-## 💡 Authors
-
-### Base Application
-
-- **[Pierre-Henry Soria](https://ph7.me)**
-
-### Modifications and Improvements
-
-- [Achintha Gunasekara](http://www.achinthagunasekara.com)
-- [xdvrx1](https://github.com/xdvrx1)
-
-
-## 📮 Contact
-
-Pierre-Henry Soria: pierrehs [AT] hotmail [D0T] com
-
-Achintha Gunasekara: contact [AT] achinthagunasekara [D0T] com
-
-
-## ⚖️ License
-
-Apache License, Version 2.0 or later; Read **[license.txt](./license.txt)** for further details.
+## Tests
+**Unit tests and Integration tests will come soon**
