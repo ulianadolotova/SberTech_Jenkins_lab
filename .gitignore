@@ -4,3 +4,4 @@ postgresql_data/
 sonarqube_data/
 sonarqube_extensions/
 sonarqube_logs/
+app/target
